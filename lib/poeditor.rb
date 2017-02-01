@@ -9,14 +9,14 @@ module POEditor
   autoload :UI,        "poeditor/ui"
 
   # core
-  autoload :Exporter,   "poeditor/core/exporter"
+  autoload :Core,   "poeditor/core"
 
   # command
   autoload :Command,        "poeditor/commands/command"
-  autoload :ExportCommand,  "poeditor/commands/export_command"
+  autoload :PullCommand,    "poeditor/commands/pull_command"
   autoload :HelpCommand,    "poeditor/commands/help_command"
   autoload :VersionCommand, "poeditor/commands/version_command"
 
   # configuration
-  autoload :ExportConfiguration, "poeditor/configurations/export_configuration"
+  autoload :Configuration, "poeditor/configuration"
 end

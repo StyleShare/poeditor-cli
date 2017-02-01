@@ -13,8 +13,8 @@ module POEditor
 
     def self.command_class(argv)
       case argv[0]
-      when "export"
-        ExportCommand
+      when "pull"
+        PullCommand
       when "--version"
         VersionCommand
       else

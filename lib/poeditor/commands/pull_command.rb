@@ -1,11 +1,11 @@
 module POEditor
-  class ExportCommand
+  class PullCommand
     def run(argv)
       UI.puts "Reading configuration"
       configuration = get_configuration(argv)
       UI.puts configuration
-      exporter = POEditor::Exporter.new(configuration)
-      exporter.export_all()
+      client = POEditor::Core.new(configuration)
+      client.pull()
     end
 
     # Detects and returns the location of `poeditor.yml` file from the given
@@ -23,11 +23,11 @@ module POEditor
       end
     end
 
-    # Returns {#POEditor::ExportConfiguration} from the given system arguments.
+    # Returns {#POEditor::Configuration} from the given system arguments.
     #
     # @param argv [Array<String>] System arguments
     #
-    # @return [POEditor::ExportConfiguration] The export configuration
+    # @return [POEditor::Configuration] The export configuration
     def get_configuration(argv)
       config_path = get_configuration_file_path(argv)
       unless File.exist?(config_path)
@@ -37,7 +37,7 @@ Configuration file doesn't exist: #{config_path}.
         }
       end
       yaml = YAML.load(File.read(config_path))
-      ExportConfiguration.new(
+      Configuration.new(
         api_key: get_or_raise(yaml, "api_key"),
         project_id: get_or_raise(yaml, "project_id"),
         type: get_or_raise(yaml, "type"),

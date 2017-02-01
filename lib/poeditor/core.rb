@@ -2,15 +2,15 @@ require "json"
 require "net/http"
 
 module POEditor
-  class Exporter
-    # @return [POEditor::ExportConfiguration] The configuration for export
+  class Core
+    # @return [POEditor::Configuration] The configuration for export
     attr_accessor :configuration
 
-    # @param configuration [POEditor::ExportConfiguration]
+    # @param configuration [POEditor::Configuration]
     def initialize(configuration)
-      unless configuration.is_a? ExportConfiguration
+      unless configuration.is_a? Configuration
         raise POEditor::Exception.new \
-          "`configuration` should be an `ExportConfiguration`"
+          "`configuration` should be an `Configuration`"
       end
       @configuration = configuration
     end
@@ -31,8 +31,8 @@ module POEditor
       return Net::HTTP.post_form(uri, options)
     end
 
-    # Exports all translations
-    def export_all()
+    # Pull translations
+    def pull()
       UI.puts "\nExport translations"
       for language in @configuration.languages
         UI.puts "  - Exporting '#{language}'"

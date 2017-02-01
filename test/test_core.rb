@@ -1,6 +1,6 @@
 require_relative "test"
 
-class ExportTest < Test
+class CoreTest < Test
 
   def clean
     FileUtils.rm_rf("TestProj")
@@ -33,10 +33,10 @@ class ExportTest < Test
     clean()
   end
 
-  def get_exporter(type:,
-                   languages:, language_alias:nil,
-                   path:, path_replace:nil)
-    configuration = POEditor::ExportConfiguration.new(
+  def get_client(type:,
+                 languages:, language_alias:nil,
+                 path:, path_replace:nil)
+    configuration = POEditor::Configuration.new(
       :api_key => "TEST",
       :project_id => 12345,
       :type => type,
@@ -46,26 +46,26 @@ class ExportTest < Test
       :path_replace => path_replace,
       :path => path,
     )
-    POEditor::Exporter.new(configuration)
+    POEditor::Core.new(configuration)
   end
 
-  def test_export_failure
+  def test_pull_failure
     stub_api_export_failure()
-    exporter = get_exporter(
+    client = get_client(
       :type => "apple_strings",
       :languages => ["en", "ko"],
       :path => "",
     )
-    assert_raises POEditor::Exception do exporter.export_all() end
+    assert_raises POEditor::Exception do client.pull() end
   end
 
-  def test_export
-    exporter = get_exporter(
+  def test_pull
+    client = get_client(
       :type => "apple_strings",
       :languages => ["en", "ko", "zh-Hans", "zh-Hant"],
       :path => "TestProj/{LANGUAGE}.lproj/Localizable.strings"
     )
-    exporter.export_all()
+    client.pull()
 
     assert_match "Hi, %@!",
       File.read("TestProj/en.lproj/Localizable.strings")
@@ -83,14 +83,14 @@ class ExportTest < Test
     assert File.read("TestProj/zh.lproj/Localizable.strings").length == 0
   end
 
-  def test_export_language_alias
-    exporter = get_exporter(
+  def test_pull_language_alias
+    client = get_client(
       :type => "apple_strings",
       :languages => ["en", "ko", "zh-Hans", "zh-Hant"],
       :language_alias => {"zh" => "zh-Hans"},
       :path => "TestProj/{LANGUAGE}.lproj/Localizable.strings",
     )
-    exporter.export_all()
+    client.pull()
 
     assert_match "Simplified 你好, %@!",
       File.read("TestProj/zh-Hans.lproj/Localizable.strings")
@@ -99,14 +99,14 @@ class ExportTest < Test
       File.read("TestProj/zh.lproj/Localizable.strings")
   end
 
-  def test_export_path_replace
-    exporter = get_exporter(
+  def test_pull_path_replace
+    client = get_client(
       :type => "android_strings",
       :languages => ["en", "ko", "zh-rCN", "zh-rTW"],
       :path => "TestProj/values-{LANGUAGE}/strings.xml",
       :path_replace => {"en" => "TestProj/values/strings.xml"},
     )
-    exporter.export_all()
+    client.pull()
 
     refute File.exist?("TestProj/values-en/strings.xml")
     assert_match "Hi, %s!",

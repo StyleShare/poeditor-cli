@@ -1,5 +1,5 @@
 module POEditor
-  class ExportConfiguration
+  class Configuration
     # @return [String] POEditor API key
     # @see https://poeditor.com/account/api POEditor API Access
     attr_accessor :api_key
@@ -29,7 +29,7 @@ module POEditor
                    languages:, language_alias:nil,
                    path:, path_replace:nil)
       @api_key = from_env(api_key)
-      @project_id = from_env(project_id)
+      @project_id = from_env(project_id.to_s)
       @type = type
       @tags = tags || []
 
