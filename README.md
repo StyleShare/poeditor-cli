@@ -7,6 +7,13 @@ Command line application for [POEditor](https://poeditor.com).
 
 <img width="682" alt="poeditor-cli" src="https://cloud.githubusercontent.com/assets/931655/22509884/2aebebc2-e8d3-11e6-86e2-a9915ca755b5.png">
 
+## Features
+
+* Exporting translation files directly from POEditor to your project directory
+* Mapping translation directory dynamically
+* Replacing `%s` to `%@` for Apple strings
+* We use it on our products
+
 ## Installation
 
 ```console
