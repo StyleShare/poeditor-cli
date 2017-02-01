@@ -5,3 +5,8 @@ gemspec = File.read("poeditor-cli.gemspec")
 gemspec.scan(/(?<=s\.add_runtime_dependency ).*/).each do |dependency|
   eval "gem #{dependency}"
 end
+
+group :development do
+  gem 'minitest', '~> 5.9'
+  gem 'webmock', '~> 2.3'
+end

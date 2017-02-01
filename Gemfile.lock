@@ -1,13 +1,27 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     colorize (0.8.1)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
+    hashdiff (0.3.2)
+    minitest (5.9.1)
+    public_suffix (2.0.5)
+    safe_yaml (1.0.4)
+    webmock (2.3.2)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   colorize (~> 0.8)
+  minitest (~> 5.9)
+  webmock (~> 2.3)
 
 BUNDLED WITH
    1.13.3
