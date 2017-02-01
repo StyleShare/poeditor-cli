@@ -16,14 +16,22 @@ module POEditor
     # @return [Array<String>] The languages codes
     attr_accessor :languages
 
+    # @return [Hash{Sting => String}] The languages aliases
+    attr_accessor :language_alias
+
     attr_accessor :path
 
-    def initialize(api_key:, project_id:, type:, tags:nil, languages:, path:)
+    def initialize(api_key:, project_id:, type:, tags:nil,
+                   languages:, language_alias:nil,
+                   path:)
       @api_key = api_key
       @project_id = project_id
       @type = type
       @tags = tags or []
+
       @languages = languages
+      @language_alias = language_alias or {}
+
       @path = path
     end
 
@@ -38,6 +46,7 @@ module POEditor
         "type" => self.type,
         "tags" => self.tags,
         "languages" => self.languages,
+        "language_alias" => self.language_alias,
         "path" => self.path,
       }
       values.map { |key, value| "  - #{key}: #{value}" }.join "\n"

@@ -42,6 +42,12 @@ module POEditor
                               :type => @configuration.type,
                               :tags => @configuration.tags)
         write(@configuration.path, language, content)
+
+        for alias_to, alias_from in @configuration.language_alias
+          if language == alias_from
+            write(@configuration.path, alias_to, content)
+          end
+        end
       end
     end
 
