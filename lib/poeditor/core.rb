@@ -65,7 +65,7 @@ module POEditor
         "id" => project_id,
         "language" => convert_to_poeditor_language(language),
         "type" => type,
-        "tags" => (tags or []).join(","),
+        "tags" => (tags || []).join(","),
       }
       response = self.api("export", api_key, options)
       data = JSON(response.body)

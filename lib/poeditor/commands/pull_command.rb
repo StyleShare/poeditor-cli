@@ -15,7 +15,7 @@ module POEditor
     #
     # @return [String] The detected path of `poeditor.yml` file
     def get_configuration_file_path(argv)
-      config_index = argv.index("-c") or argv.index("--config")
+      config_index = argv.index("-c") || argv.index("--config")
       if config_index
         config_path = argv[config_index + 1]
       else
