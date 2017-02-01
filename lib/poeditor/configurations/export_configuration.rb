@@ -19,6 +19,7 @@ module POEditor
     # @return [Hash{Sting => String}] The languages aliases
     attr_accessor :language_alias
 
+    # @return [String] The path template
     attr_accessor :path
 
     def initialize(api_key:, project_id:, type:, tags:nil,
