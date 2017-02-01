@@ -29,7 +29,7 @@ $ [sudo] gem install poeditor-cli
     ```yaml
     api_key: YOUR_API_KEY
     project_id: PROJECT_ID
-    languages: [en, ko, jp, zh-Hans, zh-Hant, fr, es]
+    languages: [en, ko, ja, zh-Hans, zh-Hant, fr, es]
     path: example/Resources/{LANGUAGE}.lproj/Localizable.strings
     type: apple_strings
     tags: [ios]  # optional
