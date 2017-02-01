@@ -40,9 +40,9 @@ Configuration file doesn't exist: #{config_path}.
       ExportConfiguration.new(
         api_key: get_or_raise(yaml, "api_key"),
         project_id: get_or_raise(yaml, "project_id"),
-        languages: get_or_raise(yaml, "languages"),
         type: get_or_raise(yaml, "type"),
         tags: yaml["tags"],
+        languages: get_or_raise(yaml, "languages"),
         path: get_or_raise(yaml, "path"),
       )
     end

@@ -7,23 +7,23 @@ module POEditor
     # @return [String] POEditor project ID
     attr_accessor :project_id
 
-    # @return [Array<String>] The languages codes
-    attr_accessor :languages
-
     # @return [String] Export file type (po, apple_strings, android_strings)
     attr_accessor :type
 
     # @return [Array<String>] Tag filters (optional)
     attr_accessor :tags
 
+    # @return [Array<String>] The languages codes
+    attr_accessor :languages
+
     attr_accessor :path
 
-    def initialize(api_key:, project_id:, languages:, type:, tags:nil, path:)
+    def initialize(api_key:, project_id:, type:, tags:nil, languages:, path:)
       @api_key = api_key
       @project_id = project_id
-      @languages = languages
       @type = type
       @tags = tags or []
+      @languages = languages
       @path = path
     end
 
@@ -35,9 +35,9 @@ module POEditor
       values = {
         "api_key" => self.api_key,
         "project_id" => self.project_id,
-        "languages" => self.languages,
         "type" => self.type,
         "tags" => self.tags,
+        "languages" => self.languages,
         "path" => self.path,
       }
       values.map { |key, value| "  - #{key}: #{value}" }.join "\n"
