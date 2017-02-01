@@ -41,7 +41,7 @@ module POEditor
                               :language => language,
                               :type => @configuration.type,
                               :tags => @configuration.tags)
-        Formatter.write(@configuration.path, language, content)
+        write(@configuration.path, language, content)
       end
     end
 
@@ -90,6 +90,16 @@ module POEditor
       else
         language
       end
+    end
+
+    # Write translation file
+    def write(path_template, language, content)
+      path = path_template.gsub "{LANGUAGE}", language
+      unless File.exist?(path)
+        raise POEditor::Exception.new "#{path} doesn't exist"
+      end
+      File.write(path, content)
+      UI.puts "      #{"\xe2\x9c\x93".green} Saved at '#{path}'"
     end
 
   end

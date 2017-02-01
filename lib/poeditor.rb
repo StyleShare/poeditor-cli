@@ -10,7 +10,6 @@ module POEditor
 
   # core
   autoload :Exporter,   "poeditor/core/exporter"
-  autoload :Formatter,  "poeditor/core/formatter"
 
   # command
   autoload :Command,        "poeditor/commands/command"
