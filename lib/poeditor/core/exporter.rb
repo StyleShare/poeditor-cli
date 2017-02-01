@@ -41,11 +41,11 @@ module POEditor
                               :language => language,
                               :type => @configuration.type,
                               :tags => @configuration.tags)
-        write(@configuration.path, language, content)
+        write(language, content)
 
         for alias_to, alias_from in @configuration.language_alias
           if language == alias_from
-            write(@configuration.path, alias_to, content)
+            write(alias_to, content)
           end
         end
       end
@@ -89,9 +89,9 @@ module POEditor
     end
 
     def convert_to_poeditor_language(language)
-      if language.downcase.match(/zh.+hans/)
+      if language.downcase.match(/zh.+(hans|cn)/)
         'zh-CN'
-      elsif language.downcase.match(/zh.+hant/)
+      elsif language.downcase.match(/zh.+(hant|tw)/)
         'zh-TW'
       else
         language
@@ -99,13 +99,21 @@ module POEditor
     end
 
     # Write translation file
-    def write(path_template, language, content)
-      path = path_template.gsub "{LANGUAGE}", language
+    def write(language, content)
+      path = path_for_language(language)
       unless File.exist?(path)
         raise POEditor::Exception.new "#{path} doesn't exist"
       end
       File.write(path, content)
       UI.puts "      #{"\xe2\x9c\x93".green} Saved at '#{path}'"
+    end
+
+    def path_for_language(language)
+      if @configuration.path_replace[language]
+        @configuration.path_replace[language]
+      else
+        @configuration.path.gsub("{LANGUAGE}", language)
+      end
     end
 
   end

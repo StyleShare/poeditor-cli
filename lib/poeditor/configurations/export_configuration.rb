@@ -22,18 +22,22 @@ module POEditor
     # @return [String] The path template
     attr_accessor :path
 
+    # @return [Hash{Sting => String}] The path replacements
+    attr_accessor :path_replace
+
     def initialize(api_key:, project_id:, type:, tags:nil,
                    languages:, language_alias:nil,
-                   path:)
+                   path:, path_replace:nil)
       @api_key = api_key
       @project_id = project_id
       @type = type
-      @tags = tags or []
+      @tags = tags || []
 
       @languages = languages
-      @language_alias = language_alias or {}
+      @language_alias = language_alias || {}
 
       @path = path
+      @path_replace = path_replace || {}
     end
 
     def default_path(type)
@@ -49,8 +53,18 @@ module POEditor
         "languages" => self.languages,
         "language_alias" => self.language_alias,
         "path" => self.path,
+        "path_replace" => self.path_replace,
       }
-      values.map { |key, value| "  - #{key}: #{value}" }.join "\n"
+      YAML.dump(values)[4..-2]
+        .each_line
+        .map { |line|
+          if line.start_with?("-") or line.start_with?(" ")
+            "    #{line}"
+          else
+            "  - #{line}"
+          end
+        }
+        .join("")
     end
   end
 end

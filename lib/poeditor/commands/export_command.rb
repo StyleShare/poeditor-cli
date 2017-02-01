@@ -45,6 +45,7 @@ Configuration file doesn't exist: #{config_path}.
         languages: get_or_raise(yaml, "languages"),
         language_alias: yaml["language_alias"],
         path: get_or_raise(yaml, "path"),
+        path_replace: yaml["path_replace"],
       )
     end
 
