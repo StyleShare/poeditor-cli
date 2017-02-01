@@ -40,10 +40,6 @@ module POEditor
       @path_replace = path_replace || {}
     end
 
-    def default_path(type)
-      Formatter.cls(type).default_path
-    end
-
     def to_s
       values = {
         "type" => self.type,
