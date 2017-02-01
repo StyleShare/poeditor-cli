@@ -9,10 +9,10 @@ Command line application for [POEditor](https://poeditor.com).
 
 ## Features
 
-* Exporting translation files directly from POEditor to your project directory
-* Mapping translation directory dynamically
-* Replacing `%s` with `%@` for Apple strings
-* We use it on our products
+* 📚 Exporting translation files directly from POEditor to your project directory
+* 🎲 Mapping translation directory dynamically
+* 🍎 Replacing `%s` with `%@` for Apple strings
+* 📦 We use it in our products
 
 ## Installation
 
