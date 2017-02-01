@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "poeditor"
+
+POEditor::Command.run(ARGV)
