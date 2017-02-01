@@ -8,7 +8,7 @@ class ExportTest < Test
 
   def setup
     clean()
-    for language in ["en", "ko", "ja", "zh-Hans", "zh-Hant"]
+    for language in ["en", "ko", "ja", "zh", "zh-Hans", "zh-Hant"]
       FileUtils.mkdir_p("TestProj/#{language}.lproj")
       File.write("TestProj/#{language}.lproj/Localizable.strings", "")
     end
@@ -19,11 +19,12 @@ class ExportTest < Test
     clean()
   end
 
-  def get_exporter(languages:, path:)
+  def get_exporter(languages:, language_alias:nil, path:)
     configuration = POEditor::ExportConfiguration.new(
       :api_key => "TEST",
       :project_id => 12345,
       :languages => languages,
+      :language_alias => language_alias,
       :type => "apple_strings",
       :tags => nil,
       :path => path,
@@ -65,6 +66,24 @@ class ExportTest < Test
       File.read("TestProj/zh-Hant.lproj/Localizable.strings")
 
     assert File.read("TestProj/ja.lproj/Localizable.strings").length == 0
+    assert File.read("TestProj/zh.lproj/Localizable.strings").length == 0
+  end
+
+  def test_export_language_alias
+    stub_api_export "zh-CN", %{"greeting" = "Simplified 你好, %s!";}
+
+    exporter = get_exporter(
+      :languages => ["zh-Hans"],
+      :language_alias => {"zh" => "zh-Hans"},
+      :path => "TestProj/{LANGUAGE}.lproj/Localizable.strings",
+    )
+    exporter.export_all()
+
+    assert_match "Simplified 你好, %@!",
+      File.read("TestProj/zh-Hans.lproj/Localizable.strings")
+
+    assert_match "Simplified 你好, %@!",
+      File.read("TestProj/zh.lproj/Localizable.strings")
   end
 
 end
