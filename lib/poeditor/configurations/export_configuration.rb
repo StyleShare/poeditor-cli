@@ -46,8 +46,6 @@ module POEditor
 
     def to_s
       values = {
-        "api_key" => self.api_key,
-        "project_id" => self.project_id,
         "type" => self.type,
         "tags" => self.tags,
         "languages" => self.languages,
