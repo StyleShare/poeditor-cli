@@ -28,8 +28,8 @@ module POEditor
     def initialize(api_key:, project_id:, type:, tags:nil,
                    languages:, language_alias:nil,
                    path:, path_replace:nil)
-      @api_key = api_key
-      @project_id = project_id
+      @api_key = from_env(api_key)
+      @project_id = from_env(project_id)
       @type = type
       @tags = tags || []
 
@@ -38,6 +38,15 @@ module POEditor
 
       @path = path
       @path_replace = path_replace || {}
+    end
+
+    def from_env(value)
+      if value.start_with?("$")
+        key = value[1..-1]
+        ENV[key]
+      else
+        value
+      end
     end
 
     def to_s
