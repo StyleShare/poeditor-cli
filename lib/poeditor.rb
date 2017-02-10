@@ -4,7 +4,7 @@ require "shellwords"
 require "yaml"
 
 module POEditor
-  autoload :Version,   "poeditor/version"
+  autoload :VERSION,   "poeditor/version"
   autoload :Exception, "poeditor/exception"
   autoload :UI,        "poeditor/ui"
 
