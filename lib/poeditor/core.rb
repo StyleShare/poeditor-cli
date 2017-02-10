@@ -85,6 +85,9 @@ module POEditor
         content.gsub!(/(%(\d+\$)?)@/, '\1s')  # %@ -> %s
       end
 
+      unless content.end_with? "\n"
+        content += "\n"
+      end
       return content
     end
 
