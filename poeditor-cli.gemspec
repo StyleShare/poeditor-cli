@@ -19,4 +19,6 @@ Gem::Specification.new do |s|
   s.require_paths = %w{ lib }
 
   s.add_runtime_dependency "colorize", "~> 0.8"
+
+  s.required_ruby_version = ">= 2.1"
 end
