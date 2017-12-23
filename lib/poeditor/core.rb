@@ -22,11 +22,10 @@ module POEditor
     # @param options [Hash{Sting => Object}]
     #
     # @return [Net::HTTPResponse] The response object of API request
-    # 
+    #
     # @see https://poeditor.com/api_reference/ POEditor API Reference
     def api(action, api_token, options={})
-      uri = URI("https://poeditor.com/api/")
-      options["action"] = action
+      uri = URI("https://api.poeditor.com/v2/#{action}")
       options["api_token"] = api_token
       return Net::HTTP.post_form(uri, options)
     end
@@ -67,7 +66,7 @@ module POEditor
         "type" => type,
         "tags" => (tags || []).join(","),
       }
-      response = self.api("export", api_key, options)
+      response = self.api("projects/export", api_key, options)
       data = JSON(response.body)
       unless data["response"]["status"] == "success"
         code = data["response"]["code"]
@@ -75,7 +74,7 @@ module POEditor
         raise POEditor::Exception.new "#{message} (#{code})"
       end
 
-      download_uri = URI(data["item"])
+      download_uri = URI(data["result"]["url"])
       content = Net::HTTP.get(download_uri)
 
       case type
