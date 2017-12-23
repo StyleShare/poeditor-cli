@@ -7,21 +7,22 @@ class Test < Minitest::Test
 
   def stub_api(request_action, request_body_include=nil, response_body)
     request_body_include = request_body_include || {}
-    request_body_include["action"] = request_action
-    stub_request(:post, "https://poeditor.com/api/")
+    stub_request(:post, "https://api.poeditor.com/v2/#{request_action}")
       .with(:body => hash_including(request_body_include))
       .to_return(:body => response_body)
   end
 
   def stub_api_export(language, body)
-    stub_api "export", {"language" => language}, <<~BODY
+    stub_api "projects/export", {"language" => language}, <<~BODY
       {
         "response": {
           "status": "success",
           "code": "200",
           "message": "OK"
         },
-        "item": "https://poeditor.com/api/download/file/#{language}"
+        "result": {
+          "url": "https://poeditor.com/api/download/file/#{language}"
+        }
       }
     BODY
     stub_request(:get, "https://poeditor.com/api/download/file/#{language}")
