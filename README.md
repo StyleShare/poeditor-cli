@@ -2,6 +2,7 @@
 
 [![Gem](https://img.shields.io/gem/v/poeditor-cli.svg)](https://rubygems.org/gems/poeditor-cli)
 [![Build Status](https://travis-ci.org/StyleShare/poeditor-cli.svg?branch=master)](https://travis-ci.org/StyleShare/poeditor-cli)
+[![Codecov](https://img.shields.io/codecov/c/github/StyleShare/poeditor-cli.svg)](https://codecov.io/gh/StyleShare/poeditor-cli)
 
 Command line application for [POEditor](https://poeditor.com).
 

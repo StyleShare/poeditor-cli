@@ -1,6 +1,7 @@
 require "minitest/autorun"
 require "webmock/minitest"
 
+require "helper"
 require_relative "../lib/poeditor"
 
 class Test < Minitest::Test

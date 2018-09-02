@@ -10,3 +10,7 @@ group :development do
   gem 'minitest', '~> 5.9'
   gem 'webmock', '~> 2.3'
 end
+
+group :test do
+  gem 'codecov', :require => false
+end
