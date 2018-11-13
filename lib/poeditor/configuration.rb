@@ -12,6 +12,9 @@ module POEditor
 
     # @return [Array<String>] Tag filters (optional)
     attr_accessor :tags
+    
+    # @return [Array<String>] Filters by 'translated', 'untranslated', 'fuzzy', 'not_fuzzy', 'automatic', 'not_automatic', 'proofread', 'not_proofread' (optional)
+    attr_accessor :tags
 
     # @return [Array<String>] The languages codes
     attr_accessor :languages
