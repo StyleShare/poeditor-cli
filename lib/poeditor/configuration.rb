@@ -14,7 +14,7 @@ module POEditor
     attr_accessor :tags
     
     # @return [Array<String>] Filters by 'translated', 'untranslated', 'fuzzy', 'not_fuzzy', 'automatic', 'not_automatic', 'proofread', 'not_proofread' (optional)
-    attr_accessor :tags
+    attr_accessor :filters
 
     # @return [Array<String>] The languages codes
     attr_accessor :languages
@@ -29,12 +29,13 @@ module POEditor
     attr_accessor :path_replace
 
     def initialize(api_key:, project_id:, type:, tags:nil,
-                   languages:, language_alias:nil,
+                   filters:nil, languages:, language_alias:nil,
                    path:, path_replace:nil)
       @api_key = from_env(api_key)
       @project_id = from_env(project_id.to_s)
       @type = type
       @tags = tags || []
+      @filters = filters || []
 
       @languages = languages
       @language_alias = language_alias || {}
@@ -56,6 +57,7 @@ module POEditor
       values = {
         "type" => self.type,
         "tags" => self.tags,
+        "filters" => self.filters,
         "languages" => self.languages,
         "language_alias" => self.language_alias,
         "path" => self.path,
