@@ -41,6 +41,7 @@ class CoreTest < Test
       :project_id => 12345,
       :type => type,
       :tags => nil,
+      :filters => nil,
       :languages => languages,
       :language_alias => language_alias,
       :path_replace => path_replace,
