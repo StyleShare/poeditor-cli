@@ -39,7 +39,8 @@ module POEditor
                               :project_id => @configuration.project_id,
                               :language => language,
                               :type => @configuration.type,
-                              :tags => @configuration.tags)
+                              :tags => @configuration.tags,
+                              :filters => @configuration.filters)
         write(language, content)
 
         for alias_to, alias_from in @configuration.language_alias
@@ -57,14 +58,16 @@ module POEditor
     # @param language [String]
     # @param type [String]
     # @param tags [Array<String>]
+    # @param filters [Array<String>]
     #
     # @return Downloaded translation content
-    def export(api_key:, project_id:, language:, type:, tags:nil)
+    def export(api_key:, project_id:, language:, type:, tags:nil, filters:nil)
       options = {
         "id" => project_id,
         "language" => convert_to_poeditor_language(language),
         "type" => type,
         "tags" => (tags || []).join(","),
+        "filters" => (filters || []).join(","),
       }
       response = self.api("projects/export", api_key, options)
       data = JSON(response.body)

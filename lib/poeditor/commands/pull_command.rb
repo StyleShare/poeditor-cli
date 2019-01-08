@@ -42,6 +42,7 @@ Configuration file doesn't exist: #{config_path}.
         project_id: get_or_raise(yaml, "project_id"),
         type: get_or_raise(yaml, "type"),
         tags: yaml["tags"],
+        filters: yaml["filters"],
         languages: get_or_raise(yaml, "languages"),
         language_alias: yaml["language_alias"],
         path: get_or_raise(yaml, "path"),
