@@ -107,7 +107,7 @@ module POEditor
     def write(language, content)
       path = path_for_language(language)
       unless File.exist?(path)
-        raise POEditor::Exception.new "#{path} doesn't exist"
+        FileUtils.mkdir_p(File.dirname(path))
       end
       File.write(path, content)
       UI.puts "      #{"\xe2\x9c\x93".green} Saved at '#{path}'"
